@@ -2,6 +2,9 @@ import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import styled from "styled-components";
 import './App.css';
+import {Legend} from './Legend';
+import {Slider} from './Slider';
+import {ToggleContainer} from './ToggleContainer';
 mapboxgl.accessToken = 'pk.eyJ1IjoiamhqYW5pY2tpIiwiYSI6Il9vb1ZlWnMifQ.zJie3Sr8zh3h5rR8IBMB2A';
 
 
@@ -21,16 +24,26 @@ function App() {
         zoom: zoom
       });
     });
-    
-    
+
+
   return (
-        <MapContainerStyled ref={mapContainer} /> 
-      
+        <>
+          <MapContainerStyled ref={mapContainer} />
+          <div id='console'>
+            <p> <b>Climate change effects by country</b></p>
+            <Legend />
+            <Slider />
+            <ToggleContainer />
+          </div>
+        </>
+
   );
 }
 
 const MapContainerStyled = styled.div`
-  height: 400px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
   width: 100%;
 `
 
