@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import legendImg from "./legend1.png";
+import legendImg from "./static/legend1.png";
 
 export const Legend = () => (
     <LegendWrapperStyled className="inlineWrapper">
