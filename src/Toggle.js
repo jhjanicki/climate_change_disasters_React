@@ -1,3 +1,5 @@
+import styled from "styled-components";
+
 export const Toggle = ({id, disaster}) => (
     <div className="inlineWrapper">
         <div className={`inline toggle${id}`} id={`filter${id}`}>
@@ -6,7 +8,12 @@ export const Toggle = ({id, disaster}) => (
             <div className= {`toggle__pointer color${id}`}></div>
         </div>
         <div className="inline">
-            <p className = "disasterName">{disaster}</p>
+            <ToggleTextStyled className = "disasterName">{disaster}</ToggleTextStyled>
         </div>
     </div>
 );
+
+
+const ToggleTextStyled = styled.p`
+    margin-left: 10px;
+`;
