@@ -1,13 +1,13 @@
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
-import MapGL, {Source, Layer, Feature} from "react-mapbox-gl";
+import MapGL, { Source, Layer, Feature } from "react-mapbox-gl";
 import styled from "styled-components";
 import "./App.css";
-import {Legend} from "./Legend";
-import {Slider} from "./Slider";
-import {ToggleContainer} from "./ToggleContainer";
-import {countries} from "./data/countries";
-import {data} from "./data/data";
+import { Legend } from "./Legend";
+import { Slider } from "./Slider";
+import { ToggleContainer } from "./ToggleContainer";
+import { countries } from "./data/countries";
+import { data } from "./data/data";
 mapboxgl.accessToken = "pk.eyJ1IjoiamhqYW5pY2tpIiwiYSI6Il9vb1ZlWnMifQ.zJie3Sr8zh3h5rR8IBMB2A";
 
 
