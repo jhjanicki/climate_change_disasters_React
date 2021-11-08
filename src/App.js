@@ -7,7 +7,6 @@ import { Legend } from "./Legend";
 import { Slider } from "./Slider";
 import { ToggleContainer } from "./ToggleContainer";
 import { countries } from "./data/countries";
-import { data } from "./data/data";
 mapboxgl.accessToken = "pk.eyJ1IjoiamhqYW5pY2tpIiwiYSI6Il9vb1ZlWnMifQ.zJie3Sr8zh3h5rR8IBMB2A";
 
 
@@ -18,8 +17,6 @@ function App() {
     const [lat, setLat] = useState(11.987638);
     const [zoom, setZoom] = useState(2);
 
-    console.log(countries);
-    console.log(Layer);
 
     useEffect(() => {
         if (map.current) return; // initialize map only once
@@ -31,24 +28,6 @@ function App() {
         });
 
         map.current.on("load", function () {
-
-            data.forEach(function (row) {
-                countries.features.forEach(function (country) {
-                    if (country.properties.ISO3CD == row.Code) {
-                        if (row.NDgain == "") {
-                            country.properties.NDgain = 0;
-                        } else {
-                            country.properties.NDgain = row.NDgain;
-                        }
-
-                        country.properties.latitude = row.latitude;
-                        country.properties.longitude = row.longitude;
-                        country.properties.rankND = row.rankND;
-                    }
-
-                });
-
-            });
 
             map.current.addSource("countries", {
                 type: "geojson",
