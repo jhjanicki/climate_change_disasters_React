@@ -1,8 +1,21 @@
+import styled from "styled-components";
+import legendImg from "./legend1.png";
+
 export const Legend = () => (
-    <div className="inlineWrapper" id="legendWrapper">
-        <div className="inline" id="low">worse (28)</div>
-        <img className="inline" id="legend" src="./img/legend1.png" />
-        <div className="inline" id="high">better (77)</div>
-    </div>
+    <LegendWrapperStyled className="inlineWrapper">
+        <div className="inline">worse (28)</div>
+        <LegendStyled className="inline" src={legendImg} />
+        <div className="inline">better (77)</div>
+    </LegendWrapperStyled>
 );
 
+
+const LegendWrapperStyled = styled.div`
+    margin-top: 15px;
+    font-size: 11px;
+`;
+
+const LegendStyled = styled.img`
+    width:170px;
+    height:20px;
+`;
