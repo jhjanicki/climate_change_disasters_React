@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useState } from "react";
-import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import MapGL, { Source, Layer, Feature } from "react-mapbox-gl";
 import styled from "styled-components";
 import "./App.css";
@@ -7,88 +6,49 @@ import { Legend } from "./Legend";
 import { Slider } from "./Slider";
 import { ToggleContainer } from "./ToggleContainer";
 import { countries } from "./data/countries";
-mapboxgl.accessToken = "pk.eyJ1IjoiamhqYW5pY2tpIiwiYSI6Il9vb1ZlWnMifQ.zJie3Sr8zh3h5rR8IBMB2A";
+import { dataLayer } from "./mapStyle.js";
+
+const MAPBOX_TOKEN = "pk.eyJ1IjoiamhqYW5pY2tpIiwiYSI6Il9vb1ZlWnMifQ.zJie3Sr8zh3h5rR8IBMB2A";
 
 
 function App() {
-    const mapContainer = useRef(null);
-    const map = useRef(null);
-    const [lng, setLng] = useState(9.168248);
-    const [lat, setLat] = useState(11.987638);
-    const [zoom, setZoom] = useState(2);
+    // const mapContainer = useRef(null);
+    // const map = useRef(null);
+    // const [lng, setLng] = useState(9.168248);
+    // const [lat, setLat] = useState(11.987638);
+    // const [zoom, setZoom] = useState(2);
 
-
-    useEffect(() => {
-        if (map.current) return; // initialize map only once
-        map.current = new mapboxgl.Map({
-            container: mapContainer.current,
-            style: "mapbox://styles/jhjanicki/ckrukpn7t13zy18o82tq8o7wp",
-            center: [lng, lat],
-            zoom: zoom
-        });
-
-        map.current.on("load", function () {
-
-            map.current.addSource("countries", {
-                type: "geojson",
-                data: countries
-            });
-
-            //after adding source add the fill as a layer on the map
-            map.current.addLayer({
-                "id": "countriesfill",
-                "type": "fill",
-                "source": "countries",
-                "paint": {
-                    "fill-color": [
-                        "interpolate",
-                        ["linear"],
-                        ["get", "NDgain"],
-                        0,
-                        "#888888",
-                        20,
-                        "#49010d",
-                        30,
-                        "#cb181d",
-                        40,
-                        "#fb6a4a",
-                        50,
-                        "#fc9272",
-                        60,
-                        "#fcbba1",
-                        70,
-                        "#fee0d2",
-                        80,
-                        "#fff5f0"
-                    ],
-                    "fill-opacity": 0.9
-                }
-            }, "settlement-subdivision-label");
-
-        });
-
+    const [viewport, setViewport] = useState({
+        latitude: 40,
+        longitude: -100,
+        zoom: 3,
+        bearing: 0,
+        pitch: 0
     });
 
 
 
-
     return (
-        <WrapperStyled>
-            <MapContainerStyled ref={mapContainer} />
-            {/* <Source type="geojson" data={countries}>
-                <Layer id = 'Polygon'
-                    type= 'fill'
-                    source= {countries}
-                    type = 'geojson'
-                    data = {countries}></Layer>
-            </Source> */}
-            <SidepanelStyled>
+        <>
+            <MapGL
+                {...viewport}
+                width="100%"
+                height="100%"
+                onViewportChange={setViewport}
+                mapStyle="mapbox://styles/jhjanicki/ckrukpn7t13zy18o82tq8o7wp"
+                mapboxApiAccessToken={MAPBOX_TOKEN}
+            >
+                <Source type="geojson" data={countries}>
+                    <Layer {...dataLayer} />
+                </Source>
+            </MapGL>
+            {/* <SidepanelStyled>
                 <p> <b>Climate change effects by country</b></p>
                 <Legend />
                 <Slider />
                 <ToggleContainer />
-            </SidepanelStyled>
-        </WrapperStyled>
+            </SidepanelStyled> */}
+        </>
 
     );
 }
