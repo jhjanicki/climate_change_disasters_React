@@ -1,10 +1,13 @@
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
+import MapGL, {Source, Layer, Feature} from "react-mapbox-gl";
 import styled from "styled-components";
 import "./App.css";
 import {Legend} from "./Legend";
 import {Slider} from "./Slider";
 import {ToggleContainer} from "./ToggleContainer";
+import {countries} from "./data/countries";
+import {data} from "./data/data";
 mapboxgl.accessToken = "pk.eyJ1IjoiamhqYW5pY2tpIiwiYSI6Il9vb1ZlWnMifQ.zJie3Sr8zh3h5rR8IBMB2A";
 
 
@@ -15,6 +18,9 @@ function App() {
     const [lat, setLat] = useState(11.987638);
     const [zoom, setZoom] = useState(2);
 
+    console.log(countries);
+    console.log(Layer);
+
     useEffect(() => {
         if (map.current) return; // initialize map only once
         map.current = new mapboxgl.Map({
@@ -23,12 +29,80 @@ function App() {
             center: [lng, lat],
             zoom: zoom
         });
+
+        map.current.on("load", function () {
+
+            data.forEach(function (row) {
+                countries.features.forEach(function (country) {
+                    if (country.properties.ISO3CD == row.Code) {
+                        if (row.NDgain == "") {
+                            country.properties.NDgain = 0;
+                        } else {
+                            country.properties.NDgain = row.NDgain;
+                        }
+
+                        country.properties.latitude = row.latitude;
+                        country.properties.longitude = row.longitude;
+                        country.properties.rankND = row.rankND;
+                    }
+
+                });
+
+            });
+
+            map.current.addSource("countries", {
+                type: "geojson",
+                data: countries
+            });
+
+            //after adding source add the fill as a layer on the map
+            map.current.addLayer({
+                "id": "countriesfill",
+                "type": "fill",
+                "source": "countries",
+                "paint": {
+                    "fill-color": [
+                        "interpolate",
+                        ["linear"],
+                        ["get", "NDgain"],
+                        0,
+                        "#888888",
+                        20,
+                        "#49010d",
+                        30,
+                        "#cb181d",
+                        40,
+                        "#fb6a4a",
+                        50,
+                        "#fc9272",
+                        60,
+                        "#fcbba1",
+                        70,
+                        "#fee0d2",
+                        80,
+                        "#fff5f0"
+                    ],
+                    "fill-opacity": 0.9
+                }
+            }, "settlement-subdivision-label");
+
+        });
+
     });
+
+
 
 
     return (
         <WrapperStyled>
             <MapContainerStyled ref={mapContainer} />
+            <Source type="geojson" data={countries}>
+                <Layer id = 'Polygon'
+                    type= 'fill'
+                    source= {countries}
+                    type = 'geojson'
+                    data = {countries}></Layer>
+            </Source>
             <SidepanelStyled>
                 <p> <b>Climate change effects by country</b></p>
                 <Legend />
