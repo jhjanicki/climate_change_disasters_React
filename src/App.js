@@ -96,13 +96,13 @@ function App() {
     return (
         <WrapperStyled>
             <MapContainerStyled ref={mapContainer} />
-            <Source type="geojson" data={countries}>
+            {/* <Source type="geojson" data={countries}>
                 <Layer id = 'Polygon'
                     type= 'fill'
                     source= {countries}
                     type = 'geojson'
                     data = {countries}></Layer>
-            </Source>
+            </Source> */}
             <SidepanelStyled>
                 <p> <b>Climate change effects by country</b></p>
                 <Legend />
