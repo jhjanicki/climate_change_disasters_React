@@ -1,7 +1,6 @@
 export const dataLayer = {
-    "id": "countriesfill",
+    "id": "countriesFill",
     "type": "fill",
-    "source": "countries",
     "paint": {
         "fill-color": [
             "interpolate",
