@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Toggle = ({id, disaster}) => (
+export const Toggle = ({ id, disaster }) => (
     <div className="inlineWrapper">
         <div className={`inline toggle${id}`} id={`filter${id}`}>
             <input id={`layer${id}On`} type="radio" value={`layer${id}On`} name={`toggle${id}`} checked='checked' />

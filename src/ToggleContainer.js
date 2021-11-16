@@ -1,4 +1,4 @@
-import {Toggle} from "./Toggle";
+import { Toggle } from "./Toggle";
 export const ToggleContainer = () => {
 
     const disasters = ["Flood","Storm","Drought","Wildfire","Extreme temperature"];
