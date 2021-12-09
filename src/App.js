@@ -21,6 +21,14 @@ function App() {
     });
 
     const [hoverInfo, setHoverInfo] = useState(null);
+    const [disasterData, setDisasterData] = useState();
+    const [decade,setDecade] = useState(1960);
+    const [disastersOn, setDisastersOn] = useState(["Flood"]);
+
+    useEffect(()=>{
+
+    },[]);
+
 
     const onHover = useCallback(event => {
         const {
@@ -72,8 +80,8 @@ function App() {
             <SidepanelStyled>
                 <p> <b>Climate change effects by country</b></p>
                 <Legend />
-                <Slider />
-                <ToggleContainer />
+                <Slider decade={decade} setDecade={setDecade}/>
+                <ToggleContainer disastersOn={disastersOn} setDisastersOn={setDisastersOn}/>
             </SidepanelStyled>
         </>
 
