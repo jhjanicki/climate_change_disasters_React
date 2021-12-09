@@ -9,11 +9,9 @@ export const Toggle = ({ id, disaster }) => {
 
     const [checked, setChecked] = useState(true);
     const toggleToggle = () => {
-        console.log(checked);
         setChecked((prevState)=>!prevState);
     };
 
-    console.log(checked);
     return (
         <div>
             <StyledToggle color={colorObj[id]} id={`filter${id}`} onClick={toggleToggle}>
