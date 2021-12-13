@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useMemo } from "react";
 import MapGL, { Source, Layer } from "react-map-gl";
 import styled from "styled-components";
 import { Legend } from "./Legend";
@@ -21,14 +21,14 @@ function App() {
     });
 
     const [hoverInfo, setHoverInfo] = useState(null);
-    const [disasterData, setDisasterData] = useState();
     const [decade,setDecade] = useState(1960);
     const [disastersOn, setDisastersOn] = useState(["Flood"]);
 
-    useEffect(()=>{
 
-    },[]);
-
+    const disasterFilter = useMemo(() => ["in", ["get", "type"], ["literal", disastersOn]]);
+    //I thought it'd be ["in", "type", disastersOn], [disastersOn]...but no
+    // Shouldn't useMemo take in a function plus dependency? why does it work  in the form above?
+    const decadeFilter = useMemo(() => ["==", ["get", "decade"], parseInt(decade)]);
 
     const onHover = useCallback(event => {
         const {
@@ -73,7 +73,7 @@ function App() {
                     </TooltipStyled>
                 )}
                 <Source type="geojson" data={disasters}>
-                    <Layer {...disasterLayer}/>
+                    <Layer {...disasterLayer} filter={["all", disasterFilter, decadeFilter]}/>
                 </Source>
 
             </MapGL>
