@@ -25,10 +25,10 @@ function App() {
     const [disastersOn, setDisastersOn] = useState(["Flood"]);
 
 
-    const disasterFilter = useMemo(() => ["in", ["get", "type"], ["literal", disastersOn]]);
+    const disasterFilter = useMemo(() => ["in", ["get", "type"], ["literal", disastersOn]], [disastersOn]);
     //I thought it'd be ["in", "type", disastersOn], [disastersOn]...but no
     // Shouldn't useMemo take in a function plus dependency? why does it work  in the form above?
-    const decadeFilter = useMemo(() => ["==", ["get", "decade"], parseInt(decade)]);
+    const decadeFilter = useMemo(() => ["==", ["get", "decade"], parseInt(decade)],[decade]);
 
     const onHover = useCallback(event => {
         const {
