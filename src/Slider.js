@@ -1,17 +1,13 @@
 import styled from "styled-components";
-import { useState } from "react";
 
-export const Slider = () => {
-
-    const [sliderVal, setSliderVal] = useState("1960");
-
+export const Slider = ({ decade,setDecade }) => {
 
     return (
         <div id='sliderWrapper'>
-            <SliderStyled type='range' min='1960' max='2010' step='10' value={sliderVal} onChange={(event)=> setSliderVal(event.target.value)} />
+            <SliderStyled type='range' min='1960' max='2010' step='10' value={decade} onChange={(event)=> setDecade(event.target.value)} />
             <StartStyled>start</StartStyled>
             <EndStyled>end</EndStyled>
-            <p>Decade: <span id="selectedDecade">1960s</span></p>
+            <p>Decade: <span id="selectedDecade">{decade}s</span></p>
         </div>);
 };
 
